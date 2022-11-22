@@ -1,0 +1,3 @@
+[submodule "gh-style"]
+	path = gh-style
+	url = https://github.com/sindresorhus/github-markdown-css.git
