@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="">
   <head>
-    <title>Homepage</title>
+    <title>Shraiwi</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="gh-style/github-markdown.css">
@@ -9,14 +9,18 @@
 
       .markdown-body {
         --color-canvas-default: rgb(239, 245, 241);
+        --color-border-default: rgb(223, 236, 227);
+        --color-border-muted: var(--color-border-default);
 
         box-sizing: border-box;
         min-width: 200px;
         max-width: 980px;
-        margin: 0 auto;
+        margin: 20px auto;
         padding: 15px;
         box-shadow: 0 0 5px 5px var(--color-canvas-default);
         border-radius: 10px;
+
+        border: 4px solid var(--color-border-default);
       }
 
       #bg > iframe {
@@ -35,13 +39,46 @@
         pointer-events: none;
       }
 
+      h1.headlink {
+        padding: 0; 
+        margin: 0;
+        margin-right: 10px;
+        border: none;
+        display: inline-block;
+      }
+
+      h1.headlink a {
+        color: black;
+        text-decoration: underline;
+      }
+
     </style>
   </head>
   <body style="background-color: var(--color-canvas-default);">
     <article class="markdown-body">
+      <h1 class="headlink"><a href="index.html">Home</a></h1>
+      <!--<h1 class="headlink"><a href="about.html">About</a></h1>-->
+    </article>
+    <article class="markdown-body">
       <h1 id="welcome">Welcome!</h1>
-      <p>This is the homepage to my ePortfolio</p>
-      <p><a href="test.html">this is a link to a test page.</a></p>
+      <p>My name is Shranav, and I’m an 18-year-old who likes to
+      code.</p>
+      <h2 id="projects">Projects</h2>
+      <p>Here’s a few projects I’m proud of:</p>
+      <ul>
+      <li><a href="project-tracer.html"><strong>Project
+      Tracer</strong></a>: Low-cost, privacy-preserving contact tracing
+      for the masses.</li>
+      <li><a
+      href="https://hackaday.io/project/183013-attiny555"><strong>ATTiny555</strong></a>:
+      A drop-in replacement for a 555 timer made out of an ATTiny85,
+      because I could.</li>
+      <li><a href="https://github.com/shraiwi/mini-qoi"><strong>Mini
+      QOI</strong></a>: A streaming, statically allocated QOI decoder
+      for embedded systems with very little RAM.</li>
+      </ul>
+      <p>I’m currently working on a 1 kilowatt eBike ESC, but that’s
+      still a work-in-progress.</p>
     </article>
     <div id="bg">
       <iframe frameborder="0" allowtransparence="true" height="100%" width="100%" src="https://www.shadertoy.com/embed/dsfXDn?gui=false&t=5&paused=false&muted=false"></iframe>
