@@ -6,8 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="gh-style/github-markdown.css">
     <style>
-
       .markdown-body {
+        color-scheme: light;
+
         --color-canvas-default: rgb(239, 245, 241);
         --color-border-default: rgb(223, 236, 227);
         --color-border-muted: var(--color-border-default);
@@ -17,9 +18,12 @@
         max-width: 980px;
         margin: 20px auto;
         padding: 15px;
-        box-shadow: 0 0 5px 5px var(--color-canvas-default);
-        border-radius: 10px;
 
+        background-color: var(--color-canvas-default);
+
+        box-shadow: 0 0 5px 5px var(--color-canvas-default);
+
+        border-radius: 10px;
         border: 4px solid var(--color-border-default);
       }
 
@@ -30,6 +34,8 @@
       }
 
       #bg {
+        background-color: rgb(239, 245, 241);
+
         position: fixed;
         top: 0;
         left: 0;
@@ -39,15 +45,15 @@
         pointer-events: none;
       }
 
-      h1.headlink {
-        padding: 0; 
-        margin: 0;
-        margin-right: 10px;
+      .headlink {
+        padding: 0 !important; 
+        margin: 0 !important;
+        margin-right: 10px !important;
         border: none;
         display: inline-block;
       }
 
-      h1.headlink a {
+      .headlink a {
         color: black;
         text-decoration: underline;
       }
@@ -56,32 +62,88 @@
   </head>
   <body style="background-color: var(--color-canvas-default);">
     <article class="markdown-body">
-      <h1 class="headlink"><a href="index.html">Home</a></h1>
-      <!--<h1 class="headlink"><a href="about.html">About</a></h1>-->
+      <h2 class="headlink"> &#129373;</h2>
+      <h2 class="headlink"><a href="index.html">Home</a></h2>
+      <h2 class="headlink"><a href="about.html">About Me</a></h2>
+      <h2 class="headlink"><a href="https://drive.google.com/file/d/1BLW-D8eDCqoatop5AXvtn22bRTs69PRX/view?usp=sharing">Resume</a></h2>
     </article>
     <article class="markdown-body">
       <h1 id="welcome">Welcome!</h1>
-      <p>My name is Shranav, and I’m an 18-year-old who likes to
-      code.</p>
+      <p>You’ve reached my personal ePortfolio. Take a look around, and
+      you can understand my skills, interests and a selection of some of
+      my favorite projects.</p>
+      <h2 id="skills">Skills</h2>
+      <p><em>If it has less storage than a floppy disk, I’m at
+      home.</em></p>
+      <ul>
+      <li><strong>Algorithmic Thinking</strong>: Years of coding at a
+      young age helped me apply my skills everywhere.</li>
+      <li><strong>Adapting</strong>: I’m completely self-taught in all
+      of my programming experience, as well as my electrical engineering
+      skills.</li>
+      <li><strong>Programming</strong>: C, C++, Python, Rust,
+      JavaScript, and much more!</li>
+      <li><strong>PCB Design</strong>: KiCad, Altium</li>
+      <li><strong>3D Design</strong>: OnShape, Fusion360</li>
+      <li><strong>Command-Line Tools</strong>: <code>ffmpeg</code>,
+      <code>imagemagick</code>, and a whole bunch of Linux stuff.</li>
+      </ul>
       <h2 id="projects">Projects</h2>
       <p>Here’s a few projects I’m proud of:</p>
       <ul>
-      <li><a href="project-tracer.html"><strong>Project
+      <li><p><a href="project-tracer.html"><strong>Project
       Tracer</strong></a>: Low-cost, privacy-preserving contact tracing
-      for the masses.</li>
-      <li><a
+      for the masses.</p></li>
+      <li><p><a
       href="https://hackaday.io/project/183013-attiny555"><strong>ATTiny555</strong></a>:
       A drop-in replacement for a 555 timer made out of an ATTiny85,
-      because I could.</li>
-      <li><a href="https://github.com/shraiwi/mini-qoi"><strong>Mini
+      because I could. It was featured on <a
+      href="https://hackaday.com/2021/12/15/you-can-always-use-an-attiny-instead-of-a-555/">Hackaday</a>,
+      <a
+      href="https://www.hackster.io/news/attiny555-replaces-555-timers-with-a-microcontroller-that-simulates-555s-93ace871f17d">Hackster.io</a>,
+      and <a
+      href="https://hackaday.com/2021/12/17/hackaday-podcast-149-ballerina-bot-balances-flexures-track-cat-food-pcb-goes-under-the-knife-and-an-attiny-does-the-555/">the
+      Hackaday Podcast</a> (20:11)</p>
+      <p><img src="media/attiny555-running.gif" height="256px"></p></li>
+      <li><p><a href="https://github.com/shraiwi/mini-qoi"><strong>Mini
       QOI</strong></a>: A streaming, statically allocated QOI decoder
-      for embedded systems with very little RAM.</li>
+      for embedded systems with very little RAM.</p></li>
       </ul>
       <p>I’m currently working on a 1 kilowatt eBike ESC, but that’s
       still a work-in-progress.</p>
+      <h2 id="career-goals">Career Goals</h2>
+      <h3 id="goal-1-study-abroad-in-shenzhen">Goal 1: Study abroad in
+      Shenzhen</h3>
+      <p>Through GT’s study abroad program, I plan on studying overseas
+      during the summer of my second year at Georgia Tech. I have
+      to:</p>
+      <ol type="1">
+      <li>Apply for a study abroad program</li>
+      <li>Attend classes at GT Shenzhen</li>
+      </ol>
+      <h3 id="goal-2-work-at-a-large-semiconductor-firm">Goal 2: Work at
+      a large semiconductor firm</h3>
+      <p>I want to gain valuable work experience at a semiconductor
+      manufacturer, as I feel that I lack workplace experience. I have
+      to:</p>
+      <ol type="1">
+      <li>Gain coursework experience to aid in job search</li>
+      <li>Apply to jobs over the summer</li>
+      <li>Take advantage of a co-op program or something similar to
+      work</li>
+      </ol>
+      <h3 id="goal-3-launch-a-product">Goal 3: Launch a product</h3>
+      <p>I want to launch a product, whether it be a sunrise lamp or
+      custom e-bike. This one is nebulous, but if you read my <a
+      href="about.html">bio</a> there’s plenty of things I’m passionate
+      about that I can pursue. I want to create something that makes the
+      world better.</p>
     </article>
     <div id="bg">
-      <iframe frameborder="0" allowtransparence="true" height="100%" width="100%" src="https://www.shadertoy.com/embed/dsfXDn?gui=false&t=5&paused=false&muted=false"></iframe>
+      <!--
+        this looks cool, but it's slow :<
+        <iframe frameborder="0" allowtransparence="true" height="100%" width="100%" src="https://www.shadertoy.com/embed/dsfXDn?gui=false&t=5&paused=false&muted=false"></iframe>
+      -->
     </div>
   </body>
 </html>

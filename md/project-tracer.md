@@ -2,8 +2,13 @@
 title: Project Tracer
 ---
 
-# Project Tracer
+![](media/tracer-logo.png)
+
 Project Tracer is an ESP32-based low-power contact tracing device that is compatible with the Google-Apple Exposure Notification Protocol. It is completely privacy-preserving and can work independently from a smartphone, but retains cross-device contact tracing functionality.
+
+## Project Demo
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/fehssvGHECE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## The Source Idea
 
@@ -95,4 +100,4 @@ with COVID-19.
 If you want a more in-depth read, and also how exactly to implement the
 standard, please take a look at some of the
 documents [here](https://www.apple.com/covid19/contacttracing). The part of the standard outlined above is
-the [Cryptography Specification, v1.2](https://covid19-static.cdn-apple.com/applications/covid19/current/static/contact-tracing/pdf/ExposureNotification-CryptographySpecificationv1.2.pdf){.hckui__typography__linkBlue)
+the [Cryptography Specification, v1.2](https://covid19-static.cdn-apple.com/applications/covid19/current/static/contact-tracing/pdf/ExposureNotification-CryptographySpecificationv1.2.pdf)
