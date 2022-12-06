@@ -6,13 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="gh-style/github-markdown.css">
     <style>
+      @media (prefers-color-scheme: light) {
+        .markdown-body {
+          color-scheme: light;
+          --color-canvas-default: rgb(239, 245, 241);
+          --color-border-default: rgb(223, 236, 227);
+          --color-border-muted: var(--color-border-default);
+        }
+
+        #bg { background-color: rgb(239, 245, 241); }
+      }
+
+      @media (prefers-color-scheme: dark) {
+        .markdown-body {
+          color-scheme: dark;
+          --color-canvas-default: rgb(9, 9, 9);
+          --color-border-default: rgb(50, 61, 49);
+          --color-border-muted: var(--color-border-default);
+        }
+
+        #bg { background-color: rgb(9, 9, 9); }
+      }
+
       .markdown-body {
-        color-scheme: light;
-
-        --color-canvas-default: rgb(239, 245, 241);
-        --color-border-default: rgb(223, 236, 227);
-        --color-border-muted: var(--color-border-default);
-
         box-sizing: border-box;
         min-width: 200px;
         max-width: 980px;
@@ -34,8 +50,6 @@
       }
 
       #bg {
-        background-color: rgb(239, 245, 241);
-
         position: fixed;
         top: 0;
         left: 0;
@@ -54,7 +68,7 @@
       }
 
       .headlink a {
-        color: black;
+        color: var(--color-fg-default);
         text-decoration: underline;
       }
 

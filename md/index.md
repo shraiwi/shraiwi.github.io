@@ -26,8 +26,8 @@ Here's a few projects I'm proud of:
 	<img src="media/attiny555-running.gif" height="256px">
 
 - [**Mini QOI**](https://github.com/shraiwi/mini-qoi): A streaming, statically allocated QOI decoder for embedded systems with very little RAM.
-
-I'm currently working on a 1 kilowatt eBike ESC, but that's still a work-in-progress.
+- [**Sunrise Lamp**](/sunrise-lamp.html): A sunrise lamp designed for lofted dorm beds to help me get up in the morning and stop missing class!
+- **My EBike**: I'm currently working on a 1 kilowatt eBike ESC, but that's still a work-in-progress.
 
 ## Career Goals
 
