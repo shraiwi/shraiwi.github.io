@@ -1,166 +1,329 @@
 <!DOCTYPE html>
-<html lang="">
-  <head>
-    <title>Shraiwi</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="gh-style/github-markdown.css">
-    <style>
-      @media (prefers-color-scheme: light) {
-        .markdown-body {
-          color-scheme: light;
-          --color-canvas-default: rgb(239, 245, 241);
-          --color-border-default: rgb(223, 236, 227);
-          --color-border-muted: var(--color-border-default);
-        }
+<html lang="en-us">
 
-        #bg { background-color: rgb(239, 245, 241); }
-      }
+<head>
+  <title>shraiwi</title>
+  <meta name="author" content="shranav">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    /* Vertical Box: aligns all elements along the vertical axis */
+    .vbox {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
 
-      @media (prefers-color-scheme: dark) {
-        .markdown-body {
-          color-scheme: dark;
-          --color-canvas-default: rgb(9, 9, 9);
-          --color-border-default: rgb(50, 61, 49);
-          --color-border-muted: var(--color-border-default);
-        }
+    /* Horizontal Box: aligns all elements along a horizontal axis */
+    .hbox {
+      display: flex;
+      gap: 8px;
+    }
 
-        #bg { background-color: rgb(9, 9, 9); }
-      }
+    /* Row: expands to maximum width, shrinks to content height */
+    .row {
+      display: flex;
+      width: 100%;
+    }
 
-      .markdown-body {
-        box-sizing: border-box;
-        min-width: 200px;
-        max-width: 980px;
-        margin: 20px auto;
-        padding: 15px;
+    /* Column: expands to maximum height, shrinks to content width */
+    .col {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
 
-        background-color: var(--color-canvas-default);
+    /* Center: centers its one child both horizontally and vertically */
+    .center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
-        box-shadow: 0 0 5px 5px var(--color-canvas-default);
+    /* Horizontal Wrap: distributes elements along the horizontal axis, wrapping as necessary */
+    .hwrap {
+      display: flex;
+      flex-wrap: wrap;
+      align-content: flex-start; /* Aligns wrapped lines at the start of the container */
+      gap: 8px;
+    }
 
-        border-radius: 10px;
-        border: 4px solid var(--color-border-default);
-      }
+    .expand {
+      flex-grow: 1;
+    }
 
-      #bg > iframe {
-        position: relative;
-        width: 100%;
-        height: 100%;
-      }
+    body {
+      --primary-bg: rgb(239, 245, 241);
+      font-family: sans-serif;
+    }
 
-      #bg {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -1;
-        pointer-events: none;
-      }
+    .container {
+      margin: auto;
+      max-width: 48rem;
+    }
 
-      .headlink {
-        padding: 0 !important; 
-        margin: 0 !important;
-        margin-right: 10px !important;
-        border: none;
-        display: inline-block;
-      }
+    fieldset {
+      border: 2px solid black;
+      position: relative;
+    }
 
-      .headlink a {
-        color: var(--color-fg-default);
-        text-decoration: underline;
-      }
+    fieldset legend {
+      font-weight: bold;
+      text-wrap: nowrap;
+    }
 
-    </style>
-  </head>
-  <body style="background-color: var(--color-canvas-default);">
-    <article class="markdown-body">
-      <h2 class="headlink"> &#129373;</h2>
-      <h2 class="headlink"><a href="index.html">Home</a></h2>
-      <h2 class="headlink"><a href="about.html">About Me</a></h2>
-      <h2 class="headlink"><a href="https://drive.google.com/file/d/1BLW-D8eDCqoatop5AXvtn22bRTs69PRX/view?usp=sharing">Resume</a></h2>
-    </article>
-    <article class="markdown-body">
-      <h1 id="welcome">Welcome!</h1>
-      <p>You’ve reached my personal ePortfolio. Take a look around, and
-      you can understand my skills, interests and a selection of some of
-      my favorite projects.</p>
-      <h2 id="skills">Skills</h2>
-      <p><em>If it has less storage than a floppy disk, I’m at
-      home.</em></p>
+    .wrap {
+      flex-wrap: wrap;
+    }
+
+    .card-sm { display: inline-flex; flex: 14rem; flex-basis: 20rem; }
+
+    .bg-primary {
+      /*backdrop-filter: blur(8px);*/
+      background-color: var(--primary-bg);
+    }
+
+    .float-hover {
+      --grad-rot: 2rad;
+      --grad-stop: 50%;
+      perspective: 64rem;
+      transition-duration: 250ms;
+      filter: drop-shadow(0px 0px 0px var(--primary-bg));
+      /*overflow: hidden;*/
+    }
+    .float-hover:hover {
+      filter: drop-shadow(0px 0px 16px var(--primary-bg));
+      z-index: 1;
+    }
+
+    .ghstars::after {
+      content: var(--ghstars-content);
+    }
+
+    /*.float-hover > *:first-child:before {
+      display: block;
+      pointer-events: none;
+      content: "";
+      position: absolute;
+      top: -8px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: linear-gradient(var(--grad-rot), 
+        rgba(0, 0, 0, 0.0) var(--grad-stop), 
+        rgba(255, 255, 255, 0.3) var(--grad-stop));
+    }*/
+    
+    a { color: unset; }
+
+    p, ul, h1, h2, h3, h4, h5, h6 { margin: 0; }
+
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 4px;
+      margin-bottom: 4px;
+    }
+  </style>
+</head>
+
+<body class="bg-primary">
+  <div class="container hwrap">
+    <div class="row vbox">
+      <h1>🥝 shraiwi</h1>
+      <h2>about me</h2>
+      <p>Hi, I'm Shranav! Here's a few things about me:</p>
       <ul>
-      <li><strong>Algorithmic Thinking</strong>: Years of coding at a
-      young age helped me apply my skills everywhere.</li>
-      <li><strong>Adapting</strong>: I’m completely self-taught in all
-      of my programming experience, as well as my electrical engineering
-      skills.</li>
-      <li><strong>Programming</strong>: C, C++, Python, Rust,
-      JavaScript, and much more!</li>
-      <li><strong>PCB Design</strong>: KiCad, Altium</li>
-      <li><strong>3D Design</strong>: OnShape, Fusion360</li>
-      <li><strong>Command-Line Tools</strong>: <code>ffmpeg</code>,
-      <code>imagemagick</code>, and a whole bunch of Linux stuff.</li>
+        <li>I'm a self-taught coder and PCB designer with a background in fast-paced competitive team robotics.</li>
+        <li>I can speak <b>C/C++</b>, <b>Rust</b>, <b>Python</b>, <b>JavaScript</b>, <b>Java</b>, and <abbr title="Dart, Matlab, GDScript, and HTML(?) to name a few.">more</abbr>.</li>
+        <li>I'm currently pursuing a Bachelor's in <b>Computer Engineering</b> at Georgia Tech.</li>
+        <li>I think that <b>XR</b>, <b>AI</b>, and <b>computer vision</b> are really cool.</li>
       </ul>
-      <h2 id="projects">Projects</h2>
-      <p>Here’s a few projects I’m proud of:</p>
-      <ul>
-      <li><p><a href="project-tracer.html"><strong>Project
-      Tracer</strong></a>: Low-cost, privacy-preserving contact tracing
-      for the masses.</p></li>
-      <li><p><a
-      href="https://hackaday.io/project/183013-attiny555"><strong>ATTiny555</strong></a>:
-      A drop-in replacement for a 555 timer made out of an ATTiny85,
-      because I could. It was featured on <a
-      href="https://hackaday.com/2021/12/15/you-can-always-use-an-attiny-instead-of-a-555/">Hackaday</a>,
-      <a
-      href="https://www.hackster.io/news/attiny555-replaces-555-timers-with-a-microcontroller-that-simulates-555s-93ace871f17d">Hackster.io</a>,
-      and <a
-      href="https://hackaday.com/2021/12/17/hackaday-podcast-149-ballerina-bot-balances-flexures-track-cat-food-pcb-goes-under-the-knife-and-an-attiny-does-the-555/">the
-      Hackaday Podcast</a> (20:11)</p>
-      <p><img src="media/attiny555-running.gif" height="256px"></p></li>
-      <li><p><a href="https://github.com/shraiwi/mini-qoi"><strong>Mini
-      QOI</strong></a>: A streaming, statically allocated QOI decoder
-      for embedded systems with very little RAM.</p></li>
-      <li><p><a href="/sunrise-lamp.html"><strong>Sunrise
-      Lamp</strong></a>: A sunrise lamp designed for lofted dorm beds to
-      help me get up in the morning and stop missing class!</p></li>
-      <li><p><strong>My EBike</strong>: I’m currently working on a 1
-      kilowatt eBike ESC, but that’s still a work-in-progress.</p></li>
-      </ul>
-      <h2 id="career-goals">Career Goals</h2>
-      <h3 id="goal-1-study-abroad-in-shenzhen">Goal 1: Study abroad in
-      Shenzhen</h3>
-      <p>Through GT’s study abroad program, I plan on studying overseas
-      during the summer of my second year at Georgia Tech. I have
-      to:</p>
-      <ol type="1">
-      <li>Apply for a study abroad program</li>
-      <li>Attend classes at GT Shenzhen</li>
-      </ol>
-      <h3 id="goal-2-work-at-a-large-semiconductor-firm">Goal 2: Work at
-      a large semiconductor firm</h3>
-      <p>I want to gain valuable work experience at a semiconductor
-      manufacturer, as I feel that I lack workplace experience. I have
-      to:</p>
-      <ol type="1">
-      <li>Gain coursework experience to aid in job search</li>
-      <li>Apply to jobs over the summer</li>
-      <li>Take advantage of a co-op program or something similar to
-      work</li>
-      </ol>
-      <h3 id="goal-3-launch-a-product">Goal 3: Launch a product</h3>
-      <p>I want to launch a product, whether it be a sunrise lamp or
-      custom e-bike. This one is nebulous, but if you read my <a
-      href="about.html">bio</a> there’s plenty of things I’m passionate
-      about that I can pursue. I want to create something that makes the
-      world better.</p>
-    </article>
-    <div id="bg">
-      <!--
-        this looks cool, but it's slow :<
-        <iframe frameborder="0" allowtransparence="true" height="100%" width="100%" src="https://www.shadertoy.com/embed/dsfXDn?gui=false&t=5&paused=false&muted=false"></iframe>
-      -->
+      <p>Want to get in touch? <span style="text-decoration: underline; cursor: pointer;"
+        onclick="this.innerText=`My email is ${document.querySelector('meta[name=\'author\']').content.toLowerCase()}@shraiwi.com.`;
+          this.style.textDecoration='unset'
+          this.style.cursor='unset'">Click here for my email.</a></p>
     </div>
-  </body>
+
+    <div class="row">
+      <h2>projects</h2>
+    </div>
+
+    <div class="float-hover card-sm">
+      <fieldset class="bg-primary expand vbox">
+        <legend>1kW EBike Motor Controller</legend>
+        <div class="vbox row">
+          <p>A 1kW brushless motor controller incorporating power electronics, control circuitry, and a power supply into a compact two-layer board.</p>
+        </div>
+        <div class="expand"></div>
+        <div class="row">
+          <a href="https://docs.google.com/document/d/e/2PACX-1vSFGY5icNWGav--J28O6DqrYGbjYRUzC6ywxYAlIm-9xqdLYpUT877c5iiTeLrhgYs5jsrrjkHroW5L/pub">Read more</a>
+        </div>
+      </fieldset>
+    </div>
+
+    <div class="float-hover card-sm">
+      <fieldset class="bg-primary expand vbox">
+        <legend>Project Tracer</legend>
+        <div class="vbox row">
+          <p>An open-source contact tracing library for the ESP32, complete with a hardware design.</p>
+          <p><b>Links</b></p>
+          <ul>
+            <li><a href="https://arxiv.org/abs/2112.15566">arXiv whitepaper</a></li>
+          </ul>
+        </div>
+        <div class="expand"></div>
+        <div class="row">
+          <a href="https://www.hackster.io/epicface2304/project-tracer-confidential-contact-tracing-for-the-masses-a6e2dc">Read more</a>
+        </div>
+      </fieldset>
+    </div>
+
+    <div class="float-hover card-sm">
+      <fieldset class="bg-primary expand vbox">
+        <legend>Circadia</legend>
+        <div class="vbox row">
+          <p>A beautiful, simple sunrise lamp designed for college dorms. Made in less than 48 hours for the <a href="https://horizons-2023.devpost.com/">Horizons 2023 hackathon</a>.</p>
+          <p><b>Prizes</b></p>
+          <ul>
+            <li>🥇 Best Overall Prize</li>
+            <li>🥇 Physical Track 1st Prize</li>
+          </ul>
+        </div>
+        <div class="expand"></div>
+        <div class="row hbox">
+          <a href="https://devpost.com/software/circadia-4hs8zj">Read more</a>
+          <a href="https://github.com/shraiwi/circadia">Source code</a>
+        </div>
+      </fieldset>
+      
+    </div>
+
+    <div class="float-hover card-sm">
+      <fieldset class="bg-primary expand vbox">
+        <legend>ATTiny555</legend>
+        <div class="vbox row">
+          <p>A drop-in replacement for a 555 timer based on the ATTiny85.</p>
+          <p><b>Featured on</b></p>
+          <ul>
+            <li>📰 <a href="https://hackaday.com/2021/12/15/you-can-always-use-an-attiny-instead-of-a-555/">Hackaday Blog</a></li>
+            <li>🎧 <a href="https://youtu.be/FvKARtnqlio?si=Mmw8I-70nUqukJJh&t=1211">Hackaday Podcast</a></li>
+            <li>📰 <a href="https://www.hackster.io/news/attiny555-replaces-555-timers-with-a-microcontroller-that-simulates-555s-93ace871f17d">Hackster.io</a></li>
+          </ul>
+        </div>
+        <div class="expand"></div>
+        <div class="row hbox">
+          <a href="https://hackaday.io/project/183013-attiny555">Read more</a>
+          <a href="https://github.com/shraiwi/ATTiny555">Source code</a>
+        </div>
+      </fieldset>
+    </div>
+
+    <div class="float-hover card-sm">
+      <fieldset class="bg-primary expand vbox">
+        <legend>mini-qoi</legend>
+        <div class="vbox row">
+          <p>An open-source, low-memory footprint decoder for the <a href="https://qoiformat.org/">QOI format</a>.</p>
+        </div>
+        <div class="expand"></div>
+        <div class="row hbox">
+          <a href="https://github.com/shraiwi/mini-qoi">Source code</a>
+        </div>
+      </fieldset>
+    </div>
+
+    <div class="float-hover card-sm">
+      <fieldset class="bg-primary expand vbox">
+        <legend>Bit Hacks!</legend>
+        <div class="vbox row">
+          <p>An interactive article to help people learn binary.</p>
+        </div>
+        <div class="expand"></div>
+        <div class="row hbox">
+          <a href="https://shraiwi.github.io/bit-hacks-online/">See it in action</a>
+          <a href="https://github.com/shraiwi/bit-hacks-online">Source code</a>
+        </div>
+      </fieldset>
+    </div>
+
+    <div class="vbox row">
+      <h2>socials</h2>
+      <ul>
+        <li><a href="https://github.com/shraiwi">GitHub</a></li>
+        <li><a href="https://www.linkedin.com/in/shranav-palakurthi/">LinkedIn</a></li>
+      </ul>
+    </div>
+  </div>
+  <script>
+    const floatHoverShear = 7.0;
+    const floatHoverDecay = 0.01;
+    const floatHoverScale = 1.05;
+    const floatHoverReflectX = -5;
+    const floatHoverRotateY = 0.1;
+
+    function floatHoverAnimate() {
+      const now = performance.now();
+
+      const dt = now - (this.floatHoverLastTimestamp || now);
+      this.floatHoverLastTimestamp = now;
+
+      this.floatHoverX += dt * (this.floatHoverRelX - this.floatHoverX) * floatHoverDecay;
+      this.floatHoverY += dt * (this.floatHoverRelY - this.floatHoverY) * floatHoverDecay;
+      this.floatHoverScale += dt * (this.floatHoverRelScale - this.floatHoverScale) * floatHoverDecay;
+
+      const norm = Math.hypot(this.floatHoverX, this.floatHoverY);
+      const gradStop = this.floatHoverX * floatHoverReflectX + 50;
+      const gradRot = this.floatHoverY * floatHoverRotateY + 2;
+
+      this.firstElementChild.style.setProperty('--grad-stop', `${gradStop}%`);
+      this.firstElementChild.style.setProperty('--grad-rot', `${gradRot}rad`);
+
+      if ((floatHoverShear * norm < 0.1) && (this.floatHoverScale < 1.001)) {
+        this.firstElementChild.style.transform = '';
+      } else {
+        this.firstElementChild.style.transform = 
+          `scale(${this.floatHoverScale}) rotate3d(${-this.floatHoverY}, ${this.floatHoverX}, 0, ${-floatHoverShear * norm}deg)`;
+      }
+
+      requestAnimationFrame(floatHoverAnimate.bind(this));
+    }
+
+    function floatHoverSetXForm(e) {
+      const { x, y } = this.getClientRects()[0];
+      const offsetX = e.clientX - x;
+      const offsetY = e.clientY - y;
+      this.floatHoverRelX = offsetX / this.clientWidth * 2.0 - 1.0;
+      this.floatHoverRelY = offsetY / this.clientHeight * 2.0 - 1.0;
+    }
+    
+
+    function floatHoverOnMouseLeave(e) {
+      this.floatHoverRelX = 0.0;
+      this.floatHoverRelY = 0.0;
+      this.floatHoverRelScale = 1.0;
+    }
+
+    function floatHoverOnMouseEnter(e) {
+      floatHoverSetXForm.bind(this, e)();
+
+      this.floatHoverRelScale = floatHoverScale;
+
+      if (!this.floatHoverAnimate) {
+        this.floatHoverX = 0.0;
+        this.floatHoverY = 0.0;
+        this.floatHoverScale = 1.0;
+        
+        floatHoverAnimate.bind(this)();
+        this.floatHoverAnimate = true;
+      }
+    }
+
+    for (const elem of document.querySelectorAll('.float-hover')) {
+      elem.addEventListener('mouseenter', floatHoverOnMouseEnter);
+      elem.addEventListener('mousemove', floatHoverSetXForm);
+      elem.addEventListener('mouseleave', floatHoverOnMouseLeave);
+
+    }
+  </script>
+
+</body>
+
 </html>
