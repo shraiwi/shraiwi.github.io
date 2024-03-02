@@ -106,7 +106,7 @@
       /*overflow: hidden;*/
     }
     .float-hover:hover {
-      filter: drop-shadow(0px 0px 16px var(--primary-bg));
+      filter: drop-shadow(0px 0px 8px var(--primary-bg)) drop-shadow(0px 0px 8px var(--primary-bg));
       z-index: 1;
     }
 
@@ -279,6 +279,9 @@
 
       const dt = now - (this.floatHoverLastTimestamp || now);
       this.floatHoverLastTimestamp = now;
+
+      const dScrollY = window.scrollY - (this.floatHoverLastScrollY || window.scrollY);
+      this.floatHoverLastScrollY = window.scrollY;
 
       this.floatHoverX += dt * (this.floatHoverRelX - this.floatHoverX) * floatHoverDecay;
       this.floatHoverY += dt * (this.floatHoverRelY - this.floatHoverY) * floatHoverDecay;
