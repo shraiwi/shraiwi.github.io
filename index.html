@@ -57,12 +57,28 @@
         --primary-bg: rgb(239, 245, 241);
         --primary-color: black;
       }
+
+      .float-hover > *:first-child > .float-hover-img {
+        mix-blend-mode: multiply;
+      }
+
+      .float-hover:hover > *:first-child > .float-hover-img {
+        opacity: 0.15;
+      }
     }
 
     @media (prefers-color-scheme: dark) {
       body {
         --primary-bg: rgb(28, 32, 30);
         --primary-color: white;
+      }
+
+      .float-hover > *:first-child > .float-hover-img {
+        mix-blend-mode: lighten;
+      }
+
+      .float-hover:hover > *:first-child > .float-hover-img {
+        opacity: 0.3;
       }
     }
 
@@ -93,7 +109,6 @@
     .card-sm { display: inline-flex; flex: 14rem; flex-basis: 20rem; }
 
     .bg-primary {
-      /*backdrop-filter: blur(8px);*/
       background-color: var(--primary-bg);
     }
 
@@ -103,31 +118,29 @@
       perspective: 64rem;
       transition-duration: 250ms;
       filter: drop-shadow(0px 0px 0px var(--primary-bg));
-      /*overflow: hidden;*/
     }
+
     .float-hover:hover {
       filter: drop-shadow(0px 0px 8px var(--primary-bg)) drop-shadow(0px 0px 8px var(--primary-bg));
       z-index: 1;
     }
 
-    .ghstars::after {
-      content: var(--ghstars-content);
-    }
-
-    /*.float-hover > *:first-child:before {
-      display: block;
-      pointer-events: none;
-      content: "";
+    .float-hover > *:first-child > .float-hover-img {
       position: absolute;
       top: -8px;
       left: 0;
-      right: 0;
-      bottom: 0;
-      background-image: linear-gradient(var(--grad-rot), 
-        rgba(0, 0, 0, 0.0) var(--grad-stop), 
-        rgba(255, 255, 255, 0.3) var(--grad-stop));
-    }*/
-    
+      height: calc(100% + 8px);
+      width: 100%;
+      transition-duration: 250ms;
+      object-fit: cover;
+      filter: grayscale(50%) contrast(120%);
+      opacity: 0.0;
+    }
+
+    .float-hover > *:first-child > *:not(.float-hover-img) {
+      z-index: 1;
+    }
+
     a { color: unset; }
 
     p, ul, h1, h2, h3, h4, h5, h6 { margin: 0; }
@@ -163,6 +176,7 @@
 
     <div class="float-hover card-sm">
       <fieldset class="bg-primary expand vbox">
+        <img class="float-hover-img" src="media/ebike-thumb.jpg">
         <legend>1kW EBike Motor Controller</legend>
         <div class="vbox row">
           <p>A 1kW brushless motor controller incorporating power electronics, control circuitry, and a power supply into a compact two-layer board.</p>
@@ -173,7 +187,7 @@
         </div>
       </fieldset>
     </div>
-
+    
     <div class="float-hover card-sm">
       <fieldset class="bg-primary expand vbox">
         <legend>Project Tracer</legend>
@@ -190,9 +204,10 @@
         </div>
       </fieldset>
     </div>
-
+    
     <div class="float-hover card-sm">
       <fieldset class="bg-primary expand vbox">
+        <img class="float-hover-img" src="media/circadia-thumb.jpg">
         <legend>Circadia</legend>
         <div class="vbox row">
           <p>A beautiful, simple sunrise lamp designed for college dorms. Made in less than 48 hours for the <a href="https://horizons-2023.devpost.com/">Horizons 2023 hackathon</a>.</p>
@@ -213,6 +228,7 @@
 
     <div class="float-hover card-sm">
       <fieldset class="bg-primary expand vbox">
+        <img class="float-hover-img" src="media/attiny555-thumb.jpg">
         <legend>ATTiny555</legend>
         <div class="vbox row">
           <p>A drop-in replacement for a 555 timer based on the ATTiny85.</p>
@@ -277,7 +293,7 @@
     function floatHoverAnimate() {
       const now = performance.now();
 
-      const dt = now - (this.floatHoverLastTimestamp || now);
+      const dt = Math.min(100, now - (this.floatHoverLastTimestamp || now)); // min 10fps
       this.floatHoverLastTimestamp = now;
 
       const dScrollY = window.scrollY - (this.floatHoverLastScrollY || window.scrollY);
