@@ -6,149 +6,8 @@
   <meta name="author" content="shranav">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    /* Vertical Box: aligns all elements along the vertical axis */
-    .vbox {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    /* Horizontal Box: aligns all elements along a horizontal axis */
-    .hbox {
-      display: flex;
-      gap: 8px;
-    }
-
-    /* Row: expands to maximum width, shrinks to content height */
-    .row {
-      display: flex;
-      width: 100%;
-    }
-
-    /* Column: expands to maximum height, shrinks to content width */
-    .col {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-    }
-
-    /* Center: centers its one child both horizontally and vertically */
-    .center {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    /* Horizontal Wrap: distributes elements along the horizontal axis, wrapping as necessary */
-    .hwrap {
-      display: flex;
-      flex-wrap: wrap;
-      align-content: flex-start; /* Aligns wrapped lines at the start of the container */
-      gap: 8px;
-    }
-
-    .expand {
-      flex-grow: 1;
-    }
-
-    @media (prefers-color-scheme: light) {
-      body {
-        --primary-bg: rgb(239, 245, 241);
-        --primary-color: black;
-      }
-
-      .float-hover > *:first-child > .float-hover-img {
-        mix-blend-mode: multiply;
-      }
-
-      .float-hover:hover > *:first-child > .float-hover-img {
-        opacity: 0.1;
-      }
-    }
-
-    @media (prefers-color-scheme: dark) {
-      body {
-        --primary-bg: rgb(28, 32, 30);
-        --primary-color: white;
-      }
-
-      .float-hover > *:first-child > .float-hover-img {
-        mix-blend-mode: lighten;
-      }
-
-      .float-hover:hover > *:first-child > .float-hover-img {
-        opacity: 0.3;
-      }
-    }
-
-    body {
-      font-family: sans-serif;
-      color: var(--primary-color);
-    }
-
-    .container {
-      margin: auto;
-      max-width: 48rem;
-    }
-
-    fieldset {
-      border: 2px solid var(--primary-color);
-      position: relative;
-    }
-
-    fieldset legend {
-      font-weight: bold;
-      text-wrap: nowrap;
-    }
-
-    .wrap {
-      flex-wrap: wrap;
-    }
-
-    .card-sm { display: inline-flex; flex: 14rem; flex-basis: 20rem; }
-
-    .bg-primary {
-      background-color: var(--primary-bg);
-    }
-
-    .float-hover {
-      --grad-rot: 2rad;
-      --grad-stop: 50%;
-      perspective: 64rem;
-      filter: drop-shadow(0px 0px 0px var(--primary-bg));
-    }
-
-    .float-hover:hover {
-      filter: drop-shadow(0px 0px 8px var(--primary-bg)) drop-shadow(0px 0px 8px var(--primary-bg));
-      z-index: 1;
-    }
-
-    .float-hover > *:first-child > .float-hover-img {
-      position: absolute;
-      top: -8px;
-      left: 0;
-      height: calc(100% + 8px);
-      width: 100%;
-      transition-duration: 250ms;
-      object-fit: cover;
-      filter: grayscale(50%) contrast(150%);
-      opacity: 0.0;
-    }
-
-    .float-hover > *:first-child > *:not(.float-hover-img) {
-      z-index: 1;
-    }
-
-    a { color: unset; }
-
-    p, ul, h1, h2, h3, h4, h5, h6 { margin: 0; }
-
-    h1, h2, h3, h4, h5, h6 {
-      margin-top: 4px;
-      margin-bottom: 4px;
-    }
-  </style>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <link rel="stylesheet" href="index.css">
 </head>
 
 <body class="bg-primary">
@@ -280,9 +139,15 @@
         <li><a href="https://www.linkedin.com/in/shranav-palakurthi/">LinkedIn</a></li>
       </ul>
     </div>
-    <div class="row" style="height: 50vh;"></div>
   </div>
-  <script>
+
+  <div class="row" style="height: 50vh;"></div>
+
+  <script type="module">
+    import MarkdownFrame from './md-frame.js';
+
+    MarkdownFrame.define();
+
     const floatHoverShear = 7.0;
     const floatHoverDecay = 0.01;
     const floatHoverScale = 1.05;
@@ -356,7 +221,6 @@
 
     }
   </script>
-
 </body>
 
 </html>
