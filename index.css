@@ -161,7 +161,6 @@ h6 {
     margin-bottom: 4px;
 }
 
-
-blockquote {
-    border-left: 2px solid var(--primary-color);
+md-frame {
+    width: 100%;
 }

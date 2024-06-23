@@ -11,11 +11,11 @@
 </head>
 
 <body class="bg-primary">
-    <div id="container" class="container hwrap">
+    <div class="container hwrap">
         <div class="row vbox">
             <h1 id="page-title">🥝 <a href="/">shraiwi</a></h1>
         </div>
-        
+        <div id="container" class="row"></div>
     </div>
     
     <div class="row" style="height: 50vh;"></div>
@@ -37,7 +37,6 @@
             document.getElementById('page-title').innerHTML += '/' + query;
             document.title = 'shraiwi/' + query;
         }
-
 
         hydrate();
     </script>

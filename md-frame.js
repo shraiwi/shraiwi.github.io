@@ -58,6 +58,7 @@ export default class MarkdownFrame extends HTMLElement {
           :host { display: block; }
           .hljs { background: #f0f0f0; padding: 0.5em; border-radius: 0.3em; }
         </style>
+        <link rel="stylesheet" href="md.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/default.min.css">
         <div class="rendered"></div>
       `;

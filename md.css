@@ -1,0 +1,44 @@
+@media (prefers-color-scheme: light) {
+    body {
+        --primary-bg: rgb(239, 245, 241);
+        --primary-color: black;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        --primary-bg: rgb(28, 32, 30);
+        --primary-color: white;
+    }
+}
+
+.rendered {
+    width: 100%;
+}
+
+body {
+    font-family: sans-serif;
+    color: var(--primary-color);
+}
+
+a {
+    color: unset;
+}
+
+blockquote {
+    position: relative;
+}
+
+blockquote:before {
+    content: "";
+    border-left: 2px solid var(--primary-color);
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    left: -1em;
+}
+
+hr {
+    border: none;
+    border-top: 2px dashed var(--primary-color);
+}
