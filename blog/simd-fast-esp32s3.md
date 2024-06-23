@@ -2,9 +2,9 @@
 
 > I wrote an accelerated FAST feature detector for the ESP32-S3 that leverages its 128-bit SIMD instructions. It achieves roughly double the performance of the reference implementation, and takes around ~6ms to process a QVGA (320x240) frame.
 
-For its price, the ESP32-S3 is a powerhouse of a microcontroller. Within its unassuming plastic package lies a dual-core CPU running at a maximum of 240MHz with a slew of peripherals, including WiFi and Bluetooth Low Energy radios. While digging through its [technical reference manual](https://www.espressif.com/sites/default/files/documentation/esp32-s3_technical_reference_manual_en.pdf) I discovered that the chip supports for a limited set of SIMD instructions. For silicon that's cheaper than the average coffee, that's pretty cool. Let's see what exciting things we can do with it!
+For its price, the ESP32-S3 is a powerhouse of a microcontroller. Within its unassuming plastic package lies a dual-core CPU running at a maximum of 240MHz with a slew of peripherals, including WiFi and Bluetooth Low Energy radios. While digging through its [technical reference manual](https://www.espressif.com/sites/default/files/documentation/esp32-s3_technical_reference_manual_en.pdf) I discovered that the chip supports a limited set of SIMD instructions. For silicon that's cheaper than the average coffee, that's pretty cool. Let's see what exciting things we can do with it!
 
-Along the way, I learned the basics of assembly on the ESP32-S3, worked around its eccentric limitations, and ended up writing my own basic register allocator, `basm` in the process of writing a SIMD-accelerated FAST corner detector. I've posted the source code [here](https://github.com/shraiwi/simd-fast-esp32s3).
+In the process of writing a SIMD-accelerated FAST corner detector, I learned the basics of assembly on the ESP32-S3, worked around its eccentric limitations, and ended up writing my own basic register allocator, `basm`. I've posted the source code [here](https://github.com/shraiwi/simd-fast-esp32s3).
 
 ---
 
@@ -75,7 +75,7 @@ array([   0,    8,   16,   24,   32,   40,   48,   56,   64,   72,   80,
       dtype=int8)
 ```
 
-The range `[128 255]` gets nonlinearly mapped to `[-128 -1]`, breaking all compare operations. To make this work, I needed to shift the range of the values from `[0, 255]` to `[-128 127]`. This should've been a simple subtraction, but the instruction set got in the way again: on the ESP32-S3, all the SIMD arithmetic operations are saturating, which meant that all pixel values above 127 would end up being clamped at -128 instead of underflowing to their appropriate values. To overcome this problem, I had to somehow subtract 128 from each number in parallel without using the subtraction instruction. This seemed like a dauting task to me at first, but I eventually arrived at a solution. 
+The range `[128 255]` gets nonlinearly mapped to `[-128 -1]`, breaking all compare operations. To make this work, I needed to shift the range of the values from `[0, 255]` to `[-128 127]`. This should've been a simple subtraction, but the instruction set got in the way again: on the ESP32-S3, all the SIMD arithmetic operations are saturating, which meant that all pixel values above 127 would end up being clamped at -128 instead of underflowing to their appropriate values. To overcome this problem, I had to somehow subtract 128 from each number in parallel without using the subtraction instruction. This seemed like a daunting task to me at first, but I eventually arrived at a solution. 
 
 Let's assume that `x` is the <abbr title="the left-hand value in a subtraction operation">minuend</abbr>. Here is its digits' place values:
 
@@ -83,7 +83,7 @@ Let's assume that `x` is the <abbr title="the left-hand value in a subtraction o
 -128 64 32 16 8 4 2 1
 ```
 
-Notice anything interesting? Subtraction is the same as addition by -128, so to compute `x - 128`, we can just "increment" the number by -128 by adding one to `x`'s most significant digit, whose place value is also -128. We can compute this by simply flipping the highest bit of `x`. Since XORing any bit with one is the same as taking the bitwise NOT, we can selectively flip the highest bit of `x` by XORing it with the bit mask `0b10000000`, which equal to `0x80`. Therefore, `x - 128 == x ^ 0x80`. 
+Notice anything interesting? Subtraction is the same as addition by -128, so to compute `x - 128`, we can just "increment" the number by -128 by adding one to `x`'s most significant digit, whose place value is -128. We can compute this by simply flipping the highest bit of `x`. Since XORing any bit with one is the same as taking the bitwise NOT, we can selectively flip the highest bit of `x` by XORing it with the bit mask `0b10000000`, which equal to `0x80`. Therefore, `x - 128 == x ^ 0x80`. 
 
 Now, whenever unsigned eight-bit values are loaded in, they are XOR'd with `0x80` to convert them an appropriate (linear) range where the arithmetic and comparisons make sense again.
 
