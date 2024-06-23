@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <title>shraiwi/read.html</title>
+  <meta name="author" content="shranav">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <link rel="stylesheet" href="index.css">
+</head>
+
+<body class="bg-primary">
+    <div id="container" class="container hwrap">
+        <div class="row vbox">
+            <h1 id="page-title">🥝 <a href="/">shraiwi</a></h1>
+        </div>
+        
+    </div>
+    
+    <div class="row" style="height: 50vh;"></div>
+
+    <script type="module">
+        import MarkdownFrame from './md-frame.js';
+        MarkdownFrame.define();
+
+        function hydrate() {
+            const query = new URLSearchParams(window.location.search).get('md');
+            if (query === null) return;
+
+            const url = new URL(query, window.location.origin);
+            if (url.origin !== window.location.origin) return;
+
+            const elem = document.createElement('md-frame');
+            elem.setAttribute('src', url);
+            document.getElementById('container').appendChild(elem);
+            document.getElementById('page-title').innerHTML += '/' + query;
+            document.title = 'shraiwi/' + query;
+        }
+
+
+        hydrate();
+    </script>
+</body>

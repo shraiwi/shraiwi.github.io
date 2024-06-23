@@ -6,14 +6,13 @@
   <meta name="author" content="shranav">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <link rel="stylesheet" href="index.css">
 </head>
 
 <body class="bg-primary">
   <div class="container hwrap">
     <div class="row vbox">
-      <h1>🥝 shraiwi</h1>
+      <h1>🥝 <a href="/">shraiwi</a></h1>
       <h2>about me</h2>
       <p>Hi, I'm Shranav! Here's a few things about me:</p>
       <ul>
@@ -133,6 +132,24 @@
     </div>
 
     <div class="vbox row">
+      <h2>blog</h2>
+    </div>
+
+    <div class="float-hover card-sm">
+      <fieldset class="bg-primary expand vbox">
+        <legend>simd-fast-esp32s3</legend>
+        <div class="vbox row">
+          <p>An accelerated FAST feature detector for the ESP32-S3 that leverages its 128-bit SIMD instructions.</p>
+        </div>
+        <div class="expand"></div>
+        <div class="row hbox">
+          <a href="read.html?md=blog/simd-fast-esp32s3.md">Read more</a>
+          <a href="https://github.com/shraiwi/simd-fast-esp32s3">Source code</a>
+        </div>
+      </fieldset>
+    </div>
+
+    <div class="vbox row">
       <h2>socials</h2>
       <ul>
         <li><a href="https://github.com/shraiwi">GitHub</a></li>
@@ -143,11 +160,7 @@
 
   <div class="row" style="height: 50vh;"></div>
 
-  <script type="module">
-    import MarkdownFrame from './md-frame.js';
-
-    MarkdownFrame.define();
-
+  <script>
     const floatHoverShear = 7.0;
     const floatHoverDecay = 0.01;
     const floatHoverScale = 1.05;
