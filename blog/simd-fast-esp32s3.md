@@ -1,10 +1,10 @@
 # SIMD-accelerated computer vision on a $2 microcontroller
 
-> I wrote an accelerated FAST feature detector for the ESP32-S3 that leverages its 128-bit SIMD instructions. It achieves roughly double the performance of the reference implementation, and takes around ~6ms to process a QVGA (320x240) frame.
+> I wrote an accelerated FAST feature detector for the ESP32-S3 that leverages its 128-bit SIMD instructions. It achieves roughly double the performance of the reference implementation, and takes around ~6ms to process a QVGA (320x240) frame. You can find the source code [here](https://github.com/shraiwi/simd-fast-esp32s3).
 
 For its price, the ESP32-S3 is a powerhouse of a microcontroller. Within its unassuming plastic package lies a dual-core CPU running at a maximum of 240MHz with a slew of peripherals, including WiFi and Bluetooth Low Energy radios. While digging through its [technical reference manual](https://www.espressif.com/sites/default/files/documentation/esp32-s3_technical_reference_manual_en.pdf) I discovered that the chip supports a limited set of SIMD instructions. For silicon that's cheaper than the average coffee, that's pretty cool. Let's see what exciting things we can do with it!
 
-In the process of writing a SIMD-accelerated FAST corner detector, I learned the basics of assembly on the ESP32-S3, worked around its eccentric limitations, and ended up writing my own basic register allocator, `basm`. I've posted the source code [here](https://github.com/shraiwi/simd-fast-esp32s3).
+In the process of writing a SIMD-accelerated FAST corner detector, I learned the basics of assembly on the ESP32-S3, worked around its eccentric limitations, and ended up writing my own basic register allocator, `basm`.
 
 ---
 
