@@ -14,6 +14,7 @@
     <div class="container hwrap">
         <div class="row vbox">
             <h1 id="page-title">🥝 <a href="/">shraiwi</a></h1>
+            <code id="page-subheading" class="tagline"></code>
         </div>
         <div id="container" class="row"></div>
     </div>
@@ -26,18 +27,35 @@
 
         function hydrate() {
             const query = new URLSearchParams(window.location.search).get('md');
-            if (query === null) return;
+            if (query === null) {
+                const elem = document.createElement('p');
+                elem.innerText = "Looks like there's no content to load. Are you sure the link's right?";
+                document.getElementById('container').appendChild(elem);
+                return;
+            };
 
             const url = new URL(query, window.location.origin);
             if (url.origin !== window.location.origin) return;
 
             const elem = document.createElement('md-frame');
             elem.setAttribute('src', url);
-            document.getElementById('container').appendChild(elem);
-            document.getElementById('page-title').innerHTML += '/' + query;
+
+            document.getElementById('page-subheading').innerText = '/' + query;
             document.title = 'shraiwi/' + query;
+            
+            elem.addEventListener('rendered', (event) => {
+                const firstH1 = event.detail.element.querySelector('h1');
+
+                if (firstH1) {
+                    const title = firstH1.textContent.trim();
+                    document.title = `${title}`;
+                }
+            });
+
+            document.getElementById('container').appendChild(elem);
         }
 
         hydrate();
     </script>
 </body>
+</html>

@@ -129,7 +129,7 @@ fieldset legend {
     transition-duration: 250ms;
     object-fit: cover;
     filter: grayscale(50%) contrast(150%);
-    opacity: 0.0;
+    opacity: 0.05;
 }
 
 .float-hover>*:first-child>*:not(.float-hover-img) {

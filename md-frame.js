@@ -49,7 +49,23 @@ export default class MarkdownFrame extends HTMLElement {
             this.render();
         } catch (error) {
             console.error('Error fetching Markdown:', error);
+            this.dispatchEvent(new CustomEvent('error', { 
+                detail: { error },
+                bubbles: true,
+                composed: true
+            }));
         }
+    }
+
+    _dispatchRenderedEvent() {
+        this.dispatchEvent(new CustomEvent('rendered', {
+            detail: { 
+                content: this._content,
+                element: this.shadowRoot.querySelector('.rendered')
+            },
+            bubbles: true,
+            composed: true
+        }));
     }
 
     render() {
@@ -68,6 +84,7 @@ export default class MarkdownFrame extends HTMLElement {
     updateRenderedContent() {
         const renderedDiv = this.shadowRoot.querySelector('.rendered');
         renderedDiv.innerHTML = marked.parse(this._content);
+        this._dispatchRenderedEvent();
     }
 
     get innerText() {

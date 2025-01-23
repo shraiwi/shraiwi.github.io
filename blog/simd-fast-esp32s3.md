@@ -1,4 +1,4 @@
-## SIMD-accelerated computer vision on a $2 microcontroller
+# SIMD-accelerated computer vision on a $2 microcontroller
 
 > I wrote an accelerated FAST feature detector for the ESP32-S3 that leverages its 128-bit SIMD instructions. It achieves roughly double the performance of the reference implementation, and takes around ~6ms to process a QVGA (320x240) frame.
 
