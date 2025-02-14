@@ -50,11 +50,12 @@
         --primary-color: black;
     }
 
-    .float-hover>*:first-child>.float-hover-img {
+    .float-hover > *:first-child > .float-hover-img {
         mix-blend-mode: multiply;
     }
 
-    .float-hover:hover>*:first-child>.float-hover-img {
+    .float-hover:hover > *:first-child > .float-hover-img, 
+        .float-hover.hover > *:first-child > .float-hover-img {
         opacity: 0.1;
     }
 }
@@ -65,11 +66,12 @@
         --primary-color: white;
     }
 
-    .float-hover>*:first-child>.float-hover-img {
+    .float-hover > *:first-child > .float-hover-img {
         mix-blend-mode: lighten;
     }
 
-    .float-hover:hover>*:first-child>.float-hover-img {
+    .float-hover:hover > *:first-child > .float-hover-img, 
+        .float-hover.hover > *:first-child > .float-hover-img {
         opacity: 0.3;
     }
 }
@@ -115,7 +117,7 @@ fieldset legend {
     filter: drop-shadow(0px 0px 0px var(--primary-bg));
 }
 
-.float-hover:hover {
+.float-hover:hover, .float-hover.hover {
     filter: drop-shadow(0px 0px 8px var(--primary-bg)) drop-shadow(0px 0px 8px var(--primary-bg));
     z-index: 1;
 }

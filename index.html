@@ -161,11 +161,14 @@
   <div class="row" style="height: 50vh;"></div>
 
   <script>
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
     const floatHoverShear = 7.0;
     const floatHoverDecay = 0.01;
-    const floatHoverScale = 1.05;
-    const floatHoverReflectX = -5;
-    const floatHoverRotateY = 0.1;
+    const floatHoverScale = isMobile ? 1.02 : 1.05;
+    const floatHoverXCoeff = 2.0;
+    const floatHoverYCoeff = isMobile ? 2.0 : 2.0;
+    const floatHoverFlipY = !isMobile;
 
     function floatHoverAnimate() {
       const now = performance.now();
@@ -181,17 +184,12 @@
       this.floatHoverScale += dt * (this.floatHoverRelScale - this.floatHoverScale) * floatHoverDecay;
 
       const norm = Math.hypot(this.floatHoverX, this.floatHoverY);
-      const gradStop = this.floatHoverX * floatHoverReflectX + 50;
-      const gradRot = this.floatHoverY * floatHoverRotateY + 2;
-
-      this.firstElementChild.style.setProperty('--grad-stop', `${gradStop}%`);
-      this.firstElementChild.style.setProperty('--grad-rot', `${gradRot}rad`);
 
       if ((floatHoverShear * norm < 0.1) && (this.floatHoverScale < 1.001)) {
         this.firstElementChild.style.transform = '';
       } else {
         this.firstElementChild.style.transform = 
-          `scale(${this.floatHoverScale}) rotate3d(${-this.floatHoverY}, ${this.floatHoverX}, 0, ${-floatHoverShear * norm}deg)`;
+          `scale(${this.floatHoverScale}) rotate3d(${floatHoverFlipY ? -this.floatHoverY : this.floatHoverY}, ${this.floatHoverX}, 0, ${-floatHoverShear * norm}deg)`;
       }
 
       requestAnimationFrame(floatHoverAnimate.bind(this));
@@ -201,21 +199,23 @@
       const { x, y } = this.getClientRects()[0];
       const offsetX = e.clientX - x;
       const offsetY = e.clientY - y;
-      this.floatHoverRelX = offsetX / this.clientWidth * 2.0 - 1.0;
-      this.floatHoverRelY = offsetY / this.clientHeight * 2.0 - 1.0;
+      this.floatHoverRelX = (offsetX / this.clientWidth * 2.0 - 1.0) * floatHoverXCoeff;
+      this.floatHoverRelY = (offsetY / this.clientHeight * 2.0 - 1.0) * floatHoverYCoeff;
     }
-    
 
     function floatHoverOnMouseLeave(e) {
       this.floatHoverRelX = 0.0;
       this.floatHoverRelY = 0.0;
       this.floatHoverRelScale = 1.0;
+
+      this.classList.remove('hover');
     }
 
     function floatHoverOnMouseEnter(e) {
       floatHoverSetXForm.bind(this, e)();
 
       this.floatHoverRelScale = floatHoverScale;
+      this.classList.add('hover');
 
       if (!this.floatHoverAnimate) {
         this.floatHoverX = 0.0;
@@ -227,11 +227,44 @@
       }
     }
 
-    for (const elem of document.querySelectorAll('.float-hover')) {
-      elem.addEventListener('mouseenter', floatHoverOnMouseEnter);
-      elem.addEventListener('mousemove', floatHoverSetXForm);
-      elem.addEventListener('mouseleave', floatHoverOnMouseLeave);
+    const floatHoverItems = Array.from(document.querySelectorAll('.float-hover'));
 
+    // on mobile enable "virtual mouse" at center of screen
+    if (isMobile) {
+      window.addEventListener('scroll', e => {
+        const virtualMouseEvent = {
+          clientX: window.innerWidth * 0.5,
+          clientY: window.innerHeight * 0.5
+        };
+        for (const elem of floatHoverItems) {
+          const rect = elem.getClientRects()[0];
+
+          const hovering = virtualMouseEvent.clientY >= rect.top 
+            && virtualMouseEvent.clientY <= rect.bottom 
+            && virtualMouseEvent.clientX >= rect.left
+            && virtualMouseEvent.clientX <= rect.right;
+          
+          elem.floatHoverVirtualCursor ||= false;
+
+          if (hovering !== elem.floatHoverVirtualCursor) {
+            if (hovering) {
+              floatHoverOnMouseEnter.bind(elem, virtualMouseEvent)();
+            } else {
+              floatHoverOnMouseLeave.bind(elem, virtualMouseEvent)();
+            }
+          } else if (hovering) {
+            floatHoverSetXForm.bind(elem, virtualMouseEvent)();
+          }
+
+          elem.floatHoverVirtualCursor = hovering;
+        }
+      });
+    } else {
+      for (const elem of floatHoverItems) {
+        elem.addEventListener('mouseenter', floatHoverOnMouseEnter);
+        elem.addEventListener('mousemove', floatHoverSetXForm);
+        elem.addEventListener('mouseleave', floatHoverOnMouseLeave);
+      }
     }
   </script>
 </body>
